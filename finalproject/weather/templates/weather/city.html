@@ -1,0 +1,62 @@
+{% extends "weather/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="text-center">
+    <h1 class="title">Weather50</h1>
+    <div id='map'></div>
+    {% if image %}
+        <div class="card" id="infocard" style="width: 400px; display: inline-block;">
+            {% if user.is_authenticated %}
+                <section class="fav {{fav}}" onclick="fav();"></section>
+            {% endif %}
+            <h3><b>{{data.name}}</b></h3>
+            {% if summary %}
+                <p id="infop">{{summary}} <a href="" onclick="{event.preventDefault(); info(true);}">[+]</a></p>
+            {% endif %}
+            <img src="{{image}}" id="image" style="max-width:100%; max-height:fit-content;">
+            </div>
+        </div>
+    {% endif %}
+    <div class="card" style="display: inline-block; width: 400px;">
+        {% if image %}
+            <h3>Weather</h3>
+        {% else %}
+            {% if user.is_authenticated %}
+                <section class="fav {{fav}}" onclick="fav();"></section>
+            {% endif %}
+            <h3><b>{{data.name}}</b></h3>
+            <h5>Weather</h5>
+        {% endif %}
+        <div style="display: inline-block; max-width: 100px;">
+            <div style="background-color: #7ccfe4; max-width: 100px;">
+                <img src="http://openweathermap.org/img/wn/{{weather.icon}}@2x.png">
+            </div>
+        </div>
+        <p style="display: inline-block;"><b>{{weather.main}}</b>, {{weather.description}}.
+            <br>
+            {% if aqi == 1 %}
+                <span style="margin-top: 10px; display: inline-block; background-color: #00ff00;"><b>Air Quality Index</b>: {{aqi}} - Good &#128513;</span>
+            {% elif aqi == 2 %}
+                <span style="margin-top: 10px; display: inline-block; background-color: #9dff00;"><b>Air Quality Index</b>: {{aqi}} - Fair &#128515;</span>
+            {% elif aqi == 3 %}
+                <span style="margin-top: 10px; display: inline-block; background-color: yellow;"><b>Air Quality Index</b>: {{aqi}} - Moderate &#128578;</span>
+            {% elif aqi == 4 %}
+                <span style="margin-top: 10px; display: inline-block; background-color: rgb(255, 136, 0);"><b>Air Quality Index</b>: {{aqi}} - Poor  &#128528;</span>
+            {% else %}
+                <span style="margin-top: 10px; display: inline-block; background-color: red;"><b>Air Quality Index</b>: {{aqi}} - Very Poor &#128577;</span>
+            {% endif %}
+        </p>
+        <p><b>Temperature &#127777;</b>: {{data.main.temp}} {{tempunit}}</p>
+        <p><b>Max</b>: {{data.main.temp_max}} {{tempunit}} | <b>Min</b>: {{data.main.temp_min}} {{tempunit}}</p>
+        <p><b>Pressure</b>: {{data.main.pressure}} hPa | <b>Humidity</b>: {{data.main.humidity}}%</p>
+        <p><b>Visibility</b>: {{data.visibility}} | <b>Wind Speed &#127788;</b>: {{data.wind.speed}} {{speedunit}}</p>
+        <p><b>Sunrise &#127749;</b>: {{sunrise.UTC}} (UTC) | {{sunrise.local}} ({{data.name}} time)</p>
+        <p><b>Sunset &#127751;</b>: {{sunset.UTC}} (UTC) | {{sunset.local}} ({{data.name}} time)</p>
+    </div>
+    <input id="data" type="hidden" value="{{data}}">
+    <input id="summary" type="hidden" value="{{summary}}">
+    <input id="info" type="hidden" value="{{info}}">
+</div>
+<script src="{% static 'weather/main.js' %}" defer></script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Weather{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
+        <link href="{% static 'weather/styles.css' %}" rel="stylesheet">
+
+        <script src="{% static 'weather/index.js' %}"></script>
+    </head>
+    <body class="backgroundimage">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #7ccfe4;">
+            <div class="container-fluid">
+              <a class="navbar-brand">
+                <img src="{% static 'weather/weatherlogo.png' %}" width="50">
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                  </li>
+                  {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'mycities' %}">My Cities</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'preferences' %}">&#9881;</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <form class="d-flex" action="{% url 'search' %}" onsubmit="document.getElementById('searchBTN').disabled = true;">
+                    <input class="form-control me-2" type="search" placeholder="Search City" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success" id="searchBTN" type="submit" onclick="addLoading();">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>

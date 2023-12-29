@@ -1,0 +1,16 @@
+{% extends "weather/layout.html" %}
+
+{% block body %}
+{% if message %}
+    <p style="text-align: right; color: red; font-size: 20px; margin-right: 10px; font-weight: 500;" id="message">{{message}}</p>
+{% endif %}
+<div class="text-center">
+    <h1 class="title">Weather50</h1>
+    <br><br><br><br><br><br>
+    <p style="font-size: 30px; font-weight: 500;">Weather50 is a weather forecast website for users to see the weather anywhere.</p>
+    <br><br><br>
+    <p style="font-size: 28px; font-weight: 600; float: left; color: teal; margin-left: 20px;">Search for a city to see its weather.</p>
+    <br><br><br>
+    <p style="font-size: 28px; font-weight: 500; color: gold; float: right; margin-right: 20px;">Add it to favorites to access it quicker.</p>
+</div>
+{% endblock %}

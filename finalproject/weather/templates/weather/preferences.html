@@ -1,0 +1,23 @@
+{% extends "weather/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="text-center">
+    <h1 class="preferencesTXT">Preferences</h1>
+    <br>
+    <h4 style="color: #909090; display: inline; margin-right: 10px;">Unit:</h4>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="standard" autocomplete="off" onclick="newUnit('standard');" {{checked.standard}}>
+            <label class="btn btn-outline-secondary text-white" for="standard">Standard</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="metric" autocomplete="off" onclick="newUnit('metric');" {{checked.metric}}>
+            <label class="btn btn-outline-secondary text-white" for="metric">Metric</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="imperial" autocomplete="off" onclick="newUnit('imperial');" {{checked.imperial}}>
+            <label class="btn btn-outline-secondary text-white" for="imperial">Imperial</label>
+        </div>
+        <button class="btn btn-success" style="margin-left: 25px;" id="saveBTN" type="button" onclick="saveChanges()">Save</button>
+</div>
+<br>
+<script src="{% static 'weather/preferences.js' %}" defer></script>
+{% endblock %}

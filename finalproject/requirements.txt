@@ -1,0 +1,14 @@
+Requirements to run this application:
+
+To run this application, the following python libraries must be installed:
+requests
+json
+wikipedia
+re
+country_converter
+datetime
+
+A few of this libraries come already installed because they are part of the python standard library.
+For the ones that are not part of the python standard library, they can be installed using the pip command in the terminal:
+pip install libraryname
+where libraryname is the name of the library to be installed
