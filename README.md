@@ -1,4 +1,4 @@
-# CS50_Capstone
+# CS50 Capstone
 My final project for Harvard University CS50's Web Programming with Python and JavaScript Course.
 
 Click below to learn more about the project
